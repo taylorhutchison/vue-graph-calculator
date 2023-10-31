@@ -5,19 +5,25 @@ import { ref } from 'vue';
 
 const defaultStep = 10;
 const step = ref(defaultStep);
+const labelsOn = ref(true);
 
 
 function decreaseStep() {
-  if(step.value > 1) {
-    step.value = step.value - 1;
+  if(step.value > 2) {
+    step.value = step.value - 2;
   }
 }
 
 function increaseStep() {
   if(step.value < 20) {
-    step.value = step.value + 1;
+    step.value = step.value + 2;
   }
 }
+
+function toggleLabels() {
+ labelsOn.value = !labelsOn.value;
+}
+
 
 </script>
 
@@ -26,8 +32,9 @@ function increaseStep() {
     <div class="graphContainer">
       <h2>Graph</h2>
       <div class="canvasWrapper">
-        <GraphCanvas :step=step />
-        <GraphControls :step=step @decrease-step="decreaseStep" @increase-step="increaseStep"/>
+        <GraphCanvas :labels-on="labelsOn" :step=step />
+        <GraphControls :labelsOn="labelsOn" :step=step @decrease-step="decreaseStep" @increase-step="increaseStep" 
+        @toggle-labels="toggleLabels"/>
       </div>
     </div>
 

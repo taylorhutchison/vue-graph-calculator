@@ -4,6 +4,7 @@ import { DrawingService } from '@/DrawingService.js'
 
 const props = defineProps<{
   step: number
+  labelsOn: boolean
 }>()
 
 let canvas: HTMLCanvasElement;
@@ -26,9 +27,7 @@ function drawCanvas() {
 
   const drawingService = new DrawingService(canvas, context)
 
-  const stepDivision = canvas.width / props.step
-
-  drawingService.drawGraph(canvas.width, canvas.height, stepDivision)
+  drawingService.drawGraph(canvas.width, canvas.height, props.step, props.labelsOn)
 
   drawingService.drawSlope(9, -12, 10, { color: 'red', width: 2 })
 }
