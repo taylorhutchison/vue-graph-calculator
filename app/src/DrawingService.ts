@@ -28,12 +28,16 @@ export class DrawingService {
       this.context.lineTo(xPos, this.canvas.height / 2)
       this.context.stroke()
 
-      if(labels && x !== 0 && i % (step <= 10 ? 2 : 3) === 0 && (i-step) !== 0) {
+      if(labels && x !== 0 && i % (step <= 16 ? 2 : 4) === 0 && (i-step) !== 0) {
         this.context.save(); 
         this.context.scale(1, -1);
         this.context.font = "17px Arial";
-        this.context.strokeStyle = "black";
+        this.context.strokeStyle = "#343434";
+        this.context.fillStyle = '#343434';
         this.context.fillText((i-step).toString(), xPos, -5);
+        this.context.beginPath();
+        this.context.arc(xPos, 0, 3, 0, Math.PI * 2, false);
+        this.context.fill();
         this.context.restore();
       }
     }
@@ -49,12 +53,16 @@ export class DrawingService {
       this.context.lineTo(this.canvas.width / 2, yPos)
       this.context.stroke()
 
-      if(labels && y !== 0 && i % (step <= 10 ? 2 : 3) === 0 && (i-step) !== 0) {
+      if(labels && y !== 0 && i % (step <= 16 ? 2 : 4) === 0 && (i-step) !== 0) {
         this.context.save(); 
         this.context.scale(1, -1);
         this.context.font = "17px Arial";
-        this.context.strokeStyle = "black";
+        this.context.strokeStyle = "#343434";
+        this.context.fillStyle = '#343434';
         this.context.fillText((i-step).toString(), 5, yPos);
+        this.context.beginPath();
+        this.context.arc(0, yPos, 3, 0, Math.PI * 2, false);
+        this.context.fill();
         this.context.restore();
       }
     }
