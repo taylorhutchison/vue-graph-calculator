@@ -6,26 +6,32 @@ export class DrawingService {
   }
 
   drawGraph(
-    min: number,
-    max: number,
+    xrange: number,
+    yrange: number,
     step: number
   ) {
     // Set the line style for the grid lines
     this.context.strokeStyle = '#bbb'
     this.context.lineWidth = 1
+
+    const xMin = -xrange;
+    const xMax = xrange;
   
     // Draw the vertical grid lines
-    for (let x = min; x <= max; x += step) {
-      const xPos = x * (this.canvas.width / (max - min))
+    for (let x = xMin; x <= xMax; x += step) {
+      const xPos = x * (this.canvas.width / (xMax - xMin))
       this.context.beginPath()
       this.context.moveTo(xPos, -this.canvas.height / 2)
       this.context.lineTo(xPos, this.canvas.height / 2)
       this.context.stroke()
     }
+
+    const yMin = -yrange;
+    const yMax = yrange;
   
     // Draw the horizontal grid lines
-    for (let y = min; y <= max; y += step) {
-      const yPos = y * (this.canvas.height / (max - min))
+    for (let y = yMin; y <= yMax; y += step) {
+      const yPos = y * (this.canvas.height / (yMax - yMin))
       this.context.beginPath()
       this.context.moveTo(-this.canvas.width / 2, yPos)
       this.context.lineTo(this.canvas.width / 2, yPos)
