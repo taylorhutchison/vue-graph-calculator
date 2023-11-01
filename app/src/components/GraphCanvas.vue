@@ -5,6 +5,7 @@ import { DrawingService } from '@/DrawingService.js'
 const props = defineProps<{
   step: number
   labelsOn: boolean
+  formulas: { m: number, b: number, color: string }[]
 }>()
 
 let canvas: HTMLCanvasElement;
@@ -25,11 +26,14 @@ function drawCanvas() {
   context.translate(canvas.width / 2, canvas.height / 2)
   context.scale(1, -1)
 
-  const drawingService = new DrawingService(canvas, context)
+  const drawingService = new DrawingService(canvas, context);
 
-  drawingService.drawGraph(canvas.width, canvas.height, props.step, props.labelsOn)
+  drawingService.drawGraph(canvas.width, canvas.height, props.step, props.labelsOn);
 
-  drawingService.drawSlope(9, -12, 10, { color: 'red', width: 2 })
+  props.formulas.forEach((formula) => {
+    drawingService.drawSlope(formula.m, formula.b, props.step, { color: formula.color, width: 2 })
+  });  
+
 }
 
 onBeforeUpdate(() => {
