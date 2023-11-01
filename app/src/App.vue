@@ -42,6 +42,7 @@ function updateColor(color: string, index: number) {
 
 function removeFormula(index: number) {
   formulas.value.splice(index, 1);
+  formulas.value = [...formulas.value];
 }
 
 
