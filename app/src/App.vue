@@ -2,13 +2,20 @@
 import GraphCanvas from './components/GraphCanvas.vue'
 import GraphControls from './components/GraphControls.vue'
 import FormulaList from './components/FormulaList.vue'
+import type { SlopeFormula } from './types';
 import { ref } from 'vue';
 
 const defaultStep = 10;
 const step = ref(defaultStep);
 const labelsOn = ref(true);
 
-const formulas = ref([{m: 2, b: 3, color: '#f00'}, {m: 3, b: 4, color: '#0f0'}, {m: 4, b: 5, color: '#00f'}]);
+const sampleData: SlopeFormula[] = [
+  {m: 2, b: 3, color: '#f00', visible: true},
+  {m: 3, b: 4, color: '#0f0', visible: true},
+  {m: 4, b: 5, color: '#00f', visible: true}
+];
+
+const formulas = ref(sampleData);
 
 
 function decreaseStep() {
@@ -33,11 +40,16 @@ function randomNumber(min: number, max: number) {
 
 function addFormula() {
   const randomColor = '#' + Math.floor(Math.random()*(16777215/8)).toString(16).padEnd(6, '0');
-  formulas.value = [...formulas.value, ({m: randomNumber(1, 10), b: randomNumber(0, 10), color: randomColor}) ];
+  formulas.value = [...formulas.value, ({m: randomNumber(1, 10), b: randomNumber(0, 10), color: randomColor, visible: true}) ];
 }
 
 function updateColor(color: string, index: number) {
   formulas.value[index].color = color;
+}
+
+function toggleVisibility(index: number) {
+  formulas.value[index].visible = !formulas.value[index].visible;
+  formulas.value = [...formulas.value];
 }
 
 function removeFormula(index: number) {
@@ -63,7 +75,9 @@ function removeFormula(index: number) {
       <h2>Slope-Intercept Formulas</h2>
       <FormulaList :formulas="formulas" @add-formula="addFormula()" 
         @update-color="($event, index) => updateColor($event, index)"
-        @remove-formula="removeFormula($event)"/>
+        @remove-formula="removeFormula($event)"
+        @toggle-visibility="toggleVisibility($event)"
+        />
     </div>
 
 

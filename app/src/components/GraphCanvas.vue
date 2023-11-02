@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUpdate } from 'vue'
 import { DrawingService } from '@/DrawingService.js'
+import type { SlopeFormula } from '@/types';
 
 const props = defineProps<{
   step: number
   labelsOn: boolean
-  formulas: { m: number, b: number, color: string }[]
+  formulas: SlopeFormula[]
 }>()
 
 let canvas: HTMLCanvasElement;
@@ -31,7 +32,9 @@ function drawCanvas() {
   drawingService.drawGraph(canvas.width, canvas.height, props.step, props.labelsOn);
 
   props.formulas.forEach((formula) => {
-    drawingService.drawSlope(formula.m, formula.b, props.step, { color: formula.color, width: 2 })
+    if(formula.visible) {
+      drawingService.drawSlope(formula.m, formula.b, props.step, { color: formula.color, width: 2 });
+    }
   });  
 
 }

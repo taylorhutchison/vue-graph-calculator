@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { SlopeFormula } from '@/types';
 import { defineProps } from 'vue'
 
 defineProps<{
-  formula: { m: number; b: number, color: string }
+  formula: SlopeFormula
 }>()
 
-const emits = defineEmits(['updateColor', 'removeFormula'])
+const emits = defineEmits(['updateColor', 'toggleVisibility', 'removeFormula'])
 
 function backgroundColor(color: string) {
     return `background-color: ${color}`
@@ -13,6 +14,10 @@ function backgroundColor(color: string) {
 
 function updateColor(color: string) {
     emits('updateColor', color);
+}
+
+function toggleVisibility() {
+    emits('toggleVisibility');
 }
 
 function removeFormula() {
@@ -30,7 +35,7 @@ function removeFormula() {
       </template>
       <v-color-picker @update:model-value="updateColor($event)"/>
     </v-menu>
-    <v-btn density="compact" class="formulaAction">Hide</v-btn>
+    <v-btn density="compact" class="formulaAction" @click="toggleVisibility">{{ formula.visible ? 'Hide' : 'Show' }}</v-btn>
     <v-btn density="compact" class="formulaAction" @click="removeFormula">Remove</v-btn>
   </div>
 </template>
