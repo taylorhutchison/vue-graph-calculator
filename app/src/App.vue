@@ -17,7 +17,6 @@ const sampleData: SlopeFormula[] = [
 
 const formulas = ref(sampleData);
 
-
 function decreaseStep() {
   if(step.value > 2) {
     step.value = step.value - 2;

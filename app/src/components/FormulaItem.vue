@@ -28,7 +28,7 @@ function removeFormula() {
 
 <template>
   <div class="formula">
-    <span>Y = <input type="text" :value="formula.m" />X + <input type="text" :value="formula.b" /></span>
+    <span>Y = <input type="text" :value="formula.m"/>X + <input type="text" :value="formula.b" /></span>
     <v-menu :close-on-content-click="false">
       <template v-slot:activator="{ props }">
         <span class="colorSelect" :style="backgroundColor(formula.color)" v-bind="props"></span>
@@ -51,7 +51,7 @@ function removeFormula() {
     font-size:0.75rem;
 }
 input {
-  width: 20px;
+  width: 30px;
   text-align: center;
   font-size: 1.5rem;
 }
